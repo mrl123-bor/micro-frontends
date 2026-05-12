@@ -1,0 +1,118 @@
+/* 灵动岛风格 Message：毛玻璃胶囊 + 顶部居中 + 弹性出现 */
+
+.el-message.admin-island-message {
+  --admin-island-glass: rgba(255, 255, 255, 0.72);
+  --admin-island-border: rgba(148, 163, 184, 0.35);
+  --admin-island-shadow: 0 0 0 1px rgba(255, 255, 255, 0.55) inset,
+    0 10px 38px rgba(15, 23, 42, 0.1), 0 4px 14px rgba(99, 102, 241, 0.08);
+
+  max-width: min(92vw, 520px);
+  border-radius: 9999px;
+  padding: 11px 22px 11px 18px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--admin-island-border);
+  background: var(--admin-island-glass) !important;
+  backdrop-filter: blur(20px) saturate(1.45);
+  -webkit-backdrop-filter: blur(20px) saturate(1.45);
+  box-shadow: var(--admin-island-shadow);
+  gap: 10px;
+  transform-origin: center center;
+  transition:
+    box-shadow 0.35s ease,
+    transform 0.35s cubic-bezier(0.34, 1.4, 0.64, 1),
+    border-color 0.25s ease;
+
+  .el-message__content {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.45;
+    letter-spacing: 0.015em;
+  }
+
+  .el-message__icon {
+    font-size: 19px;
+    filter: drop-shadow(0 0 10px currentColor);
+    opacity: 0.95;
+  }
+
+  &.is-center:hover {
+    transform: translate(-50%, 0) scaleX(1.02) scaleY(1.04);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.65) inset,
+      0 14px 44px rgba(15, 23, 42, 0.12), 0 6px 20px rgba(99, 102, 241, 0.12);
+  }
+
+  &.el-message--success {
+    --admin-island-border: rgba(34, 197, 94, 0.35);
+    box-shadow: var(--admin-island-shadow), 0 0 36px rgba(34, 197, 94, 0.12);
+  }
+
+  &.el-message--warning {
+    --admin-island-border: rgba(234, 179, 8, 0.4);
+    box-shadow: var(--admin-island-shadow), 0 0 36px rgba(234, 179, 8, 0.14);
+  }
+
+  &.el-message--error {
+    --admin-island-border: rgba(239, 68, 68, 0.38);
+    box-shadow: var(--admin-island-shadow), 0 0 40px rgba(239, 68, 68, 0.14);
+  }
+
+  &.el-message--info,
+  &.el-message--primary {
+    box-shadow: var(--admin-island-shadow), 0 0 32px rgba(99, 102, 241, 0.1);
+  }
+}
+
+html.dark .el-message.admin-island-message {
+  --admin-island-glass: rgba(30, 41, 59, 0.78);
+  --admin-island-border: rgba(148, 163, 184, 0.22);
+  --admin-island-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06) inset,
+    0 12px 42px rgba(0, 0, 0, 0.45), 0 4px 16px rgba(129, 140, 248, 0.12);
+
+  &.is-center:hover {
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+      0 16px 48px rgba(0, 0, 0, 0.5), 0 6px 22px rgba(129, 140, 248, 0.18);
+  }
+
+  &.el-message--success {
+    box-shadow: var(--admin-island-shadow), 0 0 40px rgba(34, 197, 94, 0.18);
+  }
+
+  &.el-message--warning {
+    box-shadow: var(--admin-island-shadow), 0 0 40px rgba(234, 179, 8, 0.16);
+  }
+
+  &.el-message--error {
+    box-shadow: var(--admin-island-shadow), 0 0 44px rgba(248, 113, 113, 0.2);
+  }
+}
+
+/* 进入：从中间向左右展开（横向 scaleX 拉开） */
+.el-message.admin-island-message.is-center.el-message-fade-enter-active {
+  transition:
+    opacity 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.5s cubic-bezier(0.34, 1.45, 0.64, 1),
+    box-shadow 0.35s ease;
+}
+
+.el-message.admin-island-message.is-center.el-message-fade-enter-from {
+  opacity: 0;
+  transform: translate(-50%, 0) scaleX(0.12) scaleY(0.86);
+}
+
+.el-message.admin-island-message.is-center.el-message-fade-enter-to {
+  opacity: 1;
+  transform: translate(-50%, 0) scaleX(1) scaleY(1);
+}
+
+/* 消失：向中间收拢（横向压扁） */
+.el-message.admin-island-message.is-center.el-message-fade-leave-active {
+  transition:
+    opacity 0.28s cubic-bezier(0.4, 0, 1, 1),
+    transform 0.34s cubic-bezier(0.55, 0, 0.85, 0.35);
+}
+
+.el-message.admin-island-message.is-center.el-message-fade-leave-to {
+  opacity: 0;
+  transform: translate(-50%, 0) scaleX(0.1) scaleY(0.84);
+}

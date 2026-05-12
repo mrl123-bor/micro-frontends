@@ -1,0 +1,13 @@
+// 全局 SCSS 变量：可在各组件 <style lang="scss"> 中 @use '@/assets/styles/variables' as *;
+
+$admin-font-stack:
+  'Segoe UI',
+  system-ui,
+  -apple-system,
+  Roboto,
+  'Helvetica Neue',
+  Arial,
+  sans-serif;
+
+$theme-flip-duration: 0.7s;
+$theme-flip-ease: cubic-bezier(0.19, 1, 0.22, 1);

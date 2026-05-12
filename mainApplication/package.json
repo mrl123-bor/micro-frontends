@@ -1,0 +1,55 @@
+{
+  "name": "admin-web",
+  "private": true,
+  "license": "MIT",
+  "version": "0.0.0",
+  "type": "module",
+  "browserslist": [
+    "Chrome >= 80",
+    "Firefox >= 78",
+    "Safari >= 14",
+    "iOS >= 14",
+    "Edge >= 87",
+    "Android >= 90"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run build:prod",
+    "build:prod": "vue-tsc -b && vite build",
+    "build:stage": "vue-tsc -b && vite build --mode staging",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.3.2",
+    "@guolao/vue-monaco-editor": "^1.6.0",
+    "@lgh_/media-preview-npm": "^1.0.8",
+    "axios": "^1.14.0",
+    "element-plus": "^2.13.6",
+    "gsap": "^3.15.0",
+    "highlight.js": "^11.11.1",
+    "jsbarcode": "^3.12.3",
+    "monaco-editor": "^0.55.1",
+    "pinia": "^3.0.4",
+    "qiankun": "^2.10.16",
+    "qrcode": "^1.5.4",
+    "vue": "^3.5.30",
+    "vue-advanced-cropper": "^2.8.9",
+    "vue-i18n": "^9.14.5",
+    "vue-router": "^4.6.4"
+  },
+  "devDependencies": {
+    "@types/node": "^24.12.0",
+    "@types/qrcode": "^1.5.6",
+    "@vitejs/plugin-legacy": "^8.0.1",
+    "@vitejs/plugin-vue": "^6.0.5",
+    "@vue/tsconfig": "^0.9.0",
+    "postcss": "^8.5.12",
+    "postcss-preset-env": "^11.2.1",
+    "sass": "^1.99.0",
+    "terser": "^5.46.2",
+    "typescript": "~5.9.3",
+    "vite": "^8.0.1",
+    "vite-plugin-compression": "^0.5.1",
+    "vue-tsc": "^3.2.5"
+  }
+}

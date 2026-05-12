@@ -1,0 +1,81 @@
+export default {
+  common: {
+    confirm: 'OK',
+    cancel: 'Cancel',
+  },
+  login: {
+    demoUseEnterButton:
+      'This build is demo mode — use “Enter demo”; password login is disabled.',
+  },
+  route: {
+    MediaPreview: 'Media preview',
+    DemoTable: 'Table demo',
+    DemoForm: 'Form demo',
+    DemoAnalysis: 'Analysis',
+    DemoMediaPreview: 'Media preview',
+    DemoPermission: 'Button permissions',
+  },
+  imageUpload: {
+    tipSize: 'Max {size} MB each',
+    tipType: 'Allowed: {types}',
+    tipPaste:
+      'Click here or focus (Tab), then paste a screenshot; you can also drag images into the area.',
+    formatError: 'Invalid format. Allowed: {types}',
+    sizeError: 'Image must be smaller than {size} MB',
+    exceed: 'You can upload at most {limit} image(s)',
+    uploading: 'Uploading…',
+    fail: 'Upload failed',
+    preview: 'Preview',
+  },
+  mediaPreview: {
+    title: 'Preview',
+    close: 'Close',
+    download: 'Download',
+    print: 'Print',
+    openTab: 'Open in new tab',
+    rotateRight: 'Rotate clockwise',
+    rotateLeft: 'Rotate counter-clockwise',
+    zoomIn: 'Zoom in',
+    zoomOut: 'Zoom out',
+    unsupported: 'This file type cannot be previewed here',
+    tryDownload: 'Try download',
+    downloadPrep: 'Preparing download…',
+    downloadFallback:
+      'Opened in a new tab instead (use the browser to save if needed)',
+    printFail: 'Print failed — try downloading and opening locally',
+    pdfLoadFail: 'Failed to load PDF',
+    pdfPrev: 'Previous page',
+    pdfNext: 'Next page',
+    openTabShort: 'New tab',
+    pip: 'Picture-in-picture',
+    pipFail: 'Picture-in-picture is not available',
+    pdfScaleReset: 'Reset zoom to 100%',
+    pdfKeyboardHint: 'Arrow keys: page · Ctrl +/-: zoom',
+    demo: {
+      subtitle: 'Try fullscreen preview for images, PDFs, audio, and video.',
+      intro:
+        'Images: wheel zoom and drag. PDF: built-in viewer. Audio/video: native controls. URLs without a file extension show the unsupported state with a download fallback.',
+      cardImage: 'Image',
+      cardPdf: 'PDF',
+      cardAudio: 'Audio',
+      cardVideo: 'Video',
+      cardUnsupported: 'Unsupported',
+      cardDynamic: 'Bound URL',
+      descImage: 'JPEG sample (MDN).',
+      descPdf: 'Sample PDF used by the pdf.js demo.',
+      descAudio: 'MP3 with cover image (same JPEG as above).',
+      descVideo:
+        'MP4 (MDN). Fullscreen v-l-preview omits a square poster; embedded playback uses the shared GlassFormDialog shell to mirror real in-app dialogs.',
+      videoEmbedHint:
+        'Embedded test: PreviewVideoJs inside GlassFormDialog (same URL as fullscreen preview).',
+      btnVideoEmbedDialog: 'Open embedded preview in dialog',
+      videoDialogTitle: 'Embedded player (GlassFormDialog)',
+      descUnsupported: 'No extension — shows unsupported + try download.',
+      descDynamic:
+        'Paste a file URL from your app (needs a recognizable extension, or set the type in code).',
+      btnOpen: 'Open preview',
+      btnOpenBound: 'Preview current input',
+      dynamicTitle: 'Custom title',
+    },
+  },
+}

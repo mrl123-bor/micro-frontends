@@ -1,0 +1,12 @@
+/**
+ * 语义色变量挂在子应用根节点上，避免 qiankun 下写入文档 :root 影响主应用。
+ * 独立运行时由 App.vue 根包裹层继承 Element Plus 变量，效果与原先一致。
+ */
+.content-micro-scope {
+  --admin-text: var(--el-text-color-primary);
+  --admin-text-secondary: var(--el-text-color-regular);
+  --admin-text-muted: var(--el-text-color-secondary);
+  --admin-border: var(--el-border-color);
+  --admin-surface: var(--el-bg-color);
+  --admin-shadow-soft: var(--el-box-shadow-lighter);
+}

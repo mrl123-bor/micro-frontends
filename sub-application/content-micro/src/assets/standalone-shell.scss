@@ -1,0 +1,15 @@
+/**
+ * 子应用独立打开时的页面底色与主应用主区接近（不依赖 admin 包）。
+ */
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+#app {
+  box-sizing: border-box;
+  padding: 16px;
+  background: var(--el-bg-color-page);
+}

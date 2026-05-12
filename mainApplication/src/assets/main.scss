@@ -1,0 +1,273 @@
+@use './styles/variables' as *;
+
+@use './menu-playful.scss';
+@use './tags-playful.scss';
+@use './island-message.scss';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+/* View Transition：主题切换圆形揭示（Chrome / Edge / Safari 18+） */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* 无 View Transition API 时的轻微冲击感 */
+#app.theme-flip-pulse {
+  animation: theme-flip-pulse $theme-flip-duration $theme-flip-ease both;
+}
+
+@keyframes theme-flip-pulse {
+  0% {
+    transform: scale(1);
+    filter: brightness(1) saturate(1);
+  }
+  35% {
+    transform: scale(0.992);
+    filter: brightness(1.08) saturate(1.12);
+  }
+  100% {
+    transform: scale(1);
+    filter: brightness(1) saturate(1);
+  }
+}
+
+/*
+ * 主题：Slate 中性灰 + Indigo 主色（与侧栏同源），主区偏暖白灰，降低「深侧栏 + 冷青 + 死白」的刺眼感。
+ */
+
+/* —— 设计令牌：浅色 —— */
+:root {
+  color-scheme: light;
+  --el-color-primary: #6366f1;
+  --el-color-primary-light-3: #818cf8;
+  --el-color-primary-light-5: #a5b4fc;
+  --el-color-primary-light-7: #c7d2fe;
+  --el-color-primary-light-9: #eef2ff;
+  --el-color-primary-dark-2: #4f46e5;
+
+  --admin-sidebar-accent-violet: #8b5cf6;
+  --admin-sidebar-accent-magenta: #a78bfa;
+  --admin-sidebar-glass-border: rgba(199, 210, 254, 0.2);
+  --admin-sidebar-glass-fill: rgba(255, 255, 255, 0.06);
+
+  --admin-page-bg: #f1f5f9;
+  --admin-surface: #ffffff;
+  --admin-surface-muted: #f8fafc;
+  --admin-border: rgba(51, 65, 85, 0.09);
+  --admin-border-strong: rgba(51, 65, 85, 0.14);
+  --admin-text: #0f172a;
+  --admin-text-secondary: #64748b;
+  --admin-text-muted: #94a3b8;
+
+  /* 侧栏：slate 深底 + 极弱 indigo 环境光 */
+  --admin-aside-bg: linear-gradient(175deg, #0f172a 0%, #1e293b 52%, #172033 100%);
+  --admin-aside-border: rgba(148, 163, 184, 0.14);
+  --admin-aside-solid: #0f172a;
+  --admin-sidebar-text-on: #e2e8f0;
+  /* 侧栏菜单：避免 color-mix，保证旧 WebView 下文字/底衬仍有效 */
+  --admin-menu-active-item-bg: rgba(99, 102, 241, 0.24);
+  --admin-menu-glow-primary: rgba(99, 102, 241, 0.38);
+  --admin-menu-mini-dot-mix: #b8bfd9;
+  --admin-sidebar-ambient-1: rgba(99, 102, 241, 0.14);
+  --admin-sidebar-ambient-2: rgba(148, 163, 184, 0.07);
+  --admin-logo-glow: rgba(129, 140, 248, 0.45);
+
+  --admin-header-bg: rgba(248, 250, 252, 0.88);
+  --admin-header-border: rgba(148, 163, 184, 0.14);
+  --admin-tags-bg: rgba(248, 250, 252, 0.92);
+  --admin-shadow-soft: 0 1px 0 rgba(255, 255, 255, 0.85) inset,
+    0 12px 40px rgba(15, 23, 42, 0.04);
+  /* 无 color-mix 的旧内核用 rgba 近似（Safari <16.2、部分 Android WebView 等） */
+  --admin-card-hover-shadow: 0 16px 42px rgba(99, 102, 241, 0.14);
+
+  /* 滚动条：主区/表格等 */
+  --admin-scrollbar-size: 5px;
+  --admin-scrollbar-thumb: rgba(15, 23, 42, 0.2);
+  --admin-scrollbar-thumb-hover: rgba(15, 23, 42, 0.36);
+  /* 深色侧栏内滚动条 */
+  --admin-scrollbar-aside-thumb: rgba(255, 255, 255, 0.2);
+  --admin-scrollbar-aside-thumb-hover: rgba(255, 255, 255, 0.38);
+
+  /* 布局「轨道玻璃坞」：浅色主区上的悬浮菜单岛 */
+  --admin-orbit-dock-slab-bg: linear-gradient(
+    168deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(248, 250, 252, 0.62) 55%,
+    rgba(238, 242, 255, 0.55) 100%
+  );
+  --admin-orbit-dock-slab-border: rgba(99, 102, 241, 0.2);
+  --admin-orbit-dock-slab-shadow: 0 28px 56px rgba(99, 102, 241, 0.14),
+    0 4px 14px rgba(15, 23, 42, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  --admin-orbit-dock-halo: rgba(129, 140, 248, 0.42);
+  --admin-orbit-dock-menu-text: #334155;
+  --admin-orbit-dock-menu-muted: #64748b;
+  --admin-orbit-dock-active-bg: rgba(99, 102, 241, 0.16);
+  --admin-orbit-dock-active-bar: #6366f1;
+  --admin-orbit-dock-icon-bg: rgba(99, 102, 241, 0.08);
+  --admin-orbit-dock-icon-bg-hover: rgba(99, 102, 241, 0.14);
+  --admin-orbit-dock-logo-ring: rgba(99, 102, 241, 0.35);
+
+  /* 轨道坞：折叠子菜单弹出层（卡片格） */
+  --admin-orbit-submenu-cell: rgba(255, 255, 255, 0.58);
+  --admin-orbit-submenu-cell-border: rgba(99, 102, 241, 0.14);
+}
+
+@supports (color: color-mix(in srgb, red, blue)) {
+  :root {
+    --admin-card-hover-shadow: 0 16px 42px
+      color-mix(in srgb, var(--el-color-primary) 12%, rgba(15, 23, 42, 0.06));
+    --admin-scrollbar-thumb: color-mix(in srgb, var(--admin-text) 20%, transparent);
+    --admin-scrollbar-thumb-hover: color-mix(in srgb, var(--admin-text) 36%, transparent);
+    --admin-scrollbar-aside-thumb: color-mix(in srgb, #ffffff 20%, transparent);
+    --admin-scrollbar-aside-thumb-hover: color-mix(in srgb, #ffffff 38%, transparent);
+  }
+}
+
+/* —— 设计令牌：深色（配合 Element dark/css-vars） —— */
+html.dark {
+  color-scheme: dark;
+  --el-color-primary: #818cf8;
+  --el-color-primary-light-3: #a5b4fc;
+  --el-color-primary-light-5: #c4b5fd;
+  --el-color-primary-light-7: #ddd6fe;
+  --el-color-primary-light-9: #ede9fe;
+  --el-color-primary-dark-2: #6366f1;
+
+  --admin-sidebar-accent-violet: #a78bfa;
+  --admin-sidebar-accent-magenta: #c4b5fd;
+  --admin-sidebar-glass-border: rgba(165, 180, 252, 0.16);
+  --admin-sidebar-glass-fill: rgba(255, 255, 255, 0.05);
+
+  --admin-page-bg: #020617;
+  --admin-surface: #0f172a;
+  --admin-surface-muted: #1e293b;
+  --admin-border: rgba(148, 163, 184, 0.14);
+  --admin-border-strong: rgba(148, 163, 184, 0.2);
+  --admin-text: #e2e8f0;
+  --admin-text-secondary: #94a3b8;
+  --admin-text-muted: #64748b;
+
+  --admin-aside-bg: linear-gradient(175deg, #020617 0%, #0f172a 48%, #0c1322 100%);
+  --admin-aside-border: rgba(148, 163, 184, 0.12);
+  --admin-aside-solid: #020617;
+  --admin-sidebar-text-on: #f1f5f9;
+  --admin-menu-active-item-bg: rgba(129, 140, 248, 0.3);
+  --admin-menu-glow-primary: rgba(129, 140, 248, 0.42);
+  --admin-menu-mini-dot-mix: #c7c9e5;
+  --admin-sidebar-ambient-1: rgba(129, 140, 248, 0.12);
+  --admin-sidebar-ambient-2: rgba(148, 163, 184, 0.06);
+  --admin-logo-glow: rgba(129, 140, 248, 0.38);
+
+  --admin-header-bg: rgba(15, 23, 42, 0.92);
+  --admin-header-border: rgba(148, 163, 184, 0.12);
+  --admin-tags-bg: rgba(15, 23, 42, 0.9);
+  --admin-shadow-soft: 0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 12px 40px rgba(0, 0, 0, 0.35);
+  --admin-card-hover-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
+
+  --admin-scrollbar-thumb: rgba(226, 232, 240, 0.22);
+  --admin-scrollbar-thumb-hover: rgba(226, 232, 240, 0.38);
+  --admin-scrollbar-aside-thumb: rgba(255, 255, 255, 0.18);
+  --admin-scrollbar-aside-thumb-hover: rgba(255, 255, 255, 0.34);
+
+  --admin-orbit-dock-slab-bg: linear-gradient(
+    168deg,
+    rgba(30, 41, 59, 0.88) 0%,
+    rgba(15, 23, 42, 0.72) 52%,
+    rgba(49, 46, 129, 0.22) 100%
+  );
+  --admin-orbit-dock-slab-border: rgba(129, 140, 248, 0.22);
+  --admin-orbit-dock-slab-shadow: 0 28px 60px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+  --admin-orbit-dock-halo: rgba(129, 140, 248, 0.38);
+  --admin-orbit-dock-menu-text: #e2e8f0;
+  --admin-orbit-dock-menu-muted: #94a3b8;
+  --admin-orbit-dock-active-bg: rgba(129, 140, 248, 0.28);
+  --admin-orbit-dock-active-bar: #a5b4fc;
+  --admin-orbit-dock-icon-bg: rgba(129, 140, 248, 0.12);
+  --admin-orbit-dock-icon-bg-hover: rgba(129, 140, 248, 0.22);
+  --admin-orbit-dock-logo-ring: rgba(165, 180, 252, 0.45);
+
+  --admin-orbit-submenu-cell: rgba(30, 41, 59, 0.72);
+  --admin-orbit-submenu-cell-border: rgba(129, 140, 248, 0.22);
+}
+
+@supports (color: color-mix(in srgb, red, blue)) {
+  html.dark {
+    --admin-card-hover-shadow: 0 16px 48px
+      color-mix(in srgb, #000000 65%, var(--el-color-primary) 22%);
+    --admin-scrollbar-thumb: color-mix(in srgb, var(--admin-text) 22%, transparent);
+    --admin-scrollbar-thumb-hover: color-mix(in srgb, var(--admin-text) 38%, transparent);
+    --admin-scrollbar-aside-thumb: color-mix(in srgb, #ffffff 18%, transparent);
+    --admin-scrollbar-aside-thumb-hover: color-mix(in srgb, #ffffff 34%, transparent);
+  }
+}
+
+body {
+  font-family: $admin-font-stack;
+  -webkit-font-smoothing: antialiased;
+  background: var(--admin-page-bg);
+  color: var(--admin-text);
+}
+
+/* —— 滚动条：细、圆角、与深浅主题协调（Chrome / Edge / Safari / Firefox） —— */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--admin-scrollbar-thumb) transparent;
+}
+
+.admin-aside .admin-menu,
+.drawer-inner .admin-menu {
+  scrollbar-color: var(--admin-scrollbar-aside-thumb) transparent;
+}
+
+::-webkit-scrollbar {
+  width: var(--admin-scrollbar-size);
+  height: var(--admin-scrollbar-size);
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: var(--admin-scrollbar-thumb);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--admin-scrollbar-thumb-hover);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.admin-aside .admin-menu::-webkit-scrollbar-thumb,
+.drawer-inner .admin-menu::-webkit-scrollbar-thumb {
+  background: var(--admin-scrollbar-aside-thumb);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.admin-aside .admin-menu::-webkit-scrollbar-thumb:hover,
+.drawer-inner .admin-menu::-webkit-scrollbar-thumb:hover {
+  background: var(--admin-scrollbar-aside-thumb-hover);
+}

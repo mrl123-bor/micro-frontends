@@ -1,0 +1,377 @@
+/*
+ * 侧栏菜单 —「柔轨」：列表结构不变，用圆角、字重、图标微底与主色条统一成一套耐看层次。
+ */
+
+.admin-aside,
+.admin-drawer {
+  .admin-menu--rail {
+    &.el-menu {
+      --el-menu-bg-color: transparent;
+      --el-menu-hover-bg-color: transparent;
+      /* 勿用 color-mix：旧内核整段自定义属性失效会导致菜单字色接近默认深色、在深色侧栏上不可读 */
+      --el-menu-text-color: var(--admin-sidebar-text-on);
+      --el-menu-active-color: var(--admin-sidebar-text-on);
+      border-right: none;
+      padding: 8px 0 14px;
+    }
+
+    /*
+     * EP 子菜单 ElCollapseTransition：默认 var(--el-transition-duration) + ease-in-out 的 max-height
+     * 在侧栏重装饰下易掉帧。缩短时长、展开偏 ease-out / 收起偏 ease-in，并提示合成层以减轻整栏重绘。
+     */
+    .el-menu.el-menu--inline.el-collapse-transition-enter-active,
+    .el-menu.el-menu--inline.el-collapse-transition-leave-active {
+      transform: translateZ(0);
+    }
+
+    .el-collapse-transition-enter-active {
+      will-change: max-height;
+      transition:
+        max-height 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+        padding-top 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+        padding-bottom 0.18s cubic-bezier(0.22, 1, 0.36, 1) !important;
+    }
+
+    .el-collapse-transition-leave-active {
+      will-change: max-height;
+      transition:
+        max-height 0.15s cubic-bezier(0.4, 0, 1, 1),
+        padding-top 0.12s cubic-bezier(0.4, 0, 1, 1),
+        padding-bottom 0.12s cubic-bezier(0.4, 0, 1, 1) !important;
+    }
+
+    /*
+     * 三级及以下：动画 ul 落在外层已展开的 inline 里，与父级同区域重排/重绘叠在一起，比顶栏下一层更易掉帧。
+     * 仅对「el-sub-menu 套 el-sub-menu」缩短 max-height/padding 过渡，并 isolate 子树减轻与外层竞争。
+     */
+    .el-sub-menu .el-sub-menu {
+      .el-menu.el-menu--inline.el-collapse-transition-enter-active,
+      .el-menu.el-menu--inline.el-collapse-transition-leave-active {
+        isolation: isolate;
+      }
+
+      .el-collapse-transition-enter-active {
+        transition:
+          max-height 0.13s cubic-bezier(0.25, 0.8, 0.25, 1),
+          padding-top 0.08s cubic-bezier(0.25, 0.8, 0.25, 1),
+          padding-bottom 0.08s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+      }
+
+      .el-collapse-transition-leave-active {
+        transition:
+          max-height 0.1s cubic-bezier(0.4, 0, 1, 1),
+          padding-top 0.06s cubic-bezier(0.4, 0, 1, 1),
+          padding-bottom 0.06s cubic-bezier(0.4, 0, 1, 1) !important;
+      }
+    }
+
+    .playful-row {
+      display: inline-flex;
+      align-items: center;
+      width: 100%;
+      min-width: 0;
+    }
+
+    > .el-menu-item,
+    > .el-sub-menu > .el-sub-menu__title {
+      margin: 3px 10px;
+      padding: 0 12px !important;
+      height: auto !important;
+      min-height: 42px;
+      border-radius: 8px;
+      box-sizing: border-box;
+      background: transparent !important;
+      border: none;
+      box-shadow: none;
+      transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease;
+      position: relative;
+    }
+
+    > .el-menu-item:not(.is-active):hover,
+    > .el-sub-menu > .el-sub-menu__title:hover {
+      background: rgba(255, 255, 255, 0.08) !important;
+    }
+
+    > .el-menu-item.is-active {
+      background: var(--admin-menu-active-item-bg) !important;
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08) inset;
+      font-weight: 600;
+    }
+
+    > .el-menu-item.is-active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 20px;
+      border-radius: 0 3px 3px 0;
+      background: linear-gradient(
+        180deg,
+        var(--el-color-primary-light-3),
+        var(--el-color-primary)
+      );
+      box-shadow: 0 0 12px var(--admin-menu-glow-primary);
+    }
+
+    .el-sub-menu.is-opened > .el-sub-menu__title {
+      background: rgba(255, 255, 255, 0.06) !important;
+    }
+
+    .el-menu-item,
+    .el-sub-menu__title {
+      border-radius: 8px;
+    }
+
+    .playful-icon-wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      background: transparent;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .el-menu-item:not(.is-active):hover .playful-icon-wrap,
+    .el-sub-menu__title:hover .playful-icon-wrap {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .el-menu-item.is-active .playful-icon-wrap {
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .playful-icon-wrap .el-icon {
+      font-size: 18px;
+      color: var(--admin-sidebar-text-on);
+      opacity: 0.82;
+    }
+
+    .el-menu-item.is-active .playful-icon-wrap .el-icon {
+      opacity: 1;
+      color: var(--admin-sidebar-text-on);
+    }
+
+    .playful-label {
+      font-weight: 500;
+      font-size: 13.5px;
+      letter-spacing: 0.015em;
+      flex: 1;
+      min-width: 0;
+      color: inherit;
+      opacity: 0.98;
+    }
+
+    > .el-menu-item.is-active .playful-label,
+    > .el-sub-menu > .el-sub-menu__title .playful-label {
+      font-weight: 600;
+      opacity: 1;
+    }
+
+    .el-menu-item .playful-mini-dot {
+      position: relative;
+      flex: 0 0 30px;
+      width: 30px;
+      height: 30px;
+      margin: 0 10px 0 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border-radius: 8px;
+      background: transparent;
+      transition: background 0.2s ease;
+    }
+
+    .el-menu-item:not(.is-active):hover .playful-mini-dot {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .el-menu-item.is-active .playful-mini-dot {
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .el-menu-item .playful-mini-dot::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--admin-menu-mini-dot-mix);
+      opacity: 0.88;
+    }
+
+    .el-menu-item.is-active .playful-mini-dot::before {
+      background: var(--el-color-primary-light-5);
+      box-shadow: 0 0 8px var(--admin-menu-glow-primary);
+      opacity: 1;
+    }
+
+    .el-sub-menu .el-menu {
+      margin: 2px 0 6px 0 !important;
+      padding: 4px 0 6px 0 !important;
+      background: transparent !important;
+      border-radius: 0;
+      border-left: 1px solid rgba(255, 255, 255, 0.12);
+      margin-left: 24px !important;
+    }
+
+    .el-sub-menu .el-menu-item {
+      position: relative;
+      margin: 2px 8px 2px 12px !important;
+      padding: 0 10px !important;
+      min-height: 38px;
+      border-radius: 6px;
+      background: transparent !important;
+      border: none;
+      transition: background 0.2s ease;
+    }
+
+    .el-sub-menu .el-menu-item:not(.is-active):hover {
+      background: rgba(255, 255, 255, 0.07) !important;
+    }
+
+    .el-sub-menu .el-menu-item.is-active {
+      background: var(--admin-menu-active-item-bg) !important;
+      font-weight: 600;
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06) inset;
+    }
+
+    .el-sub-menu .el-menu-item.is-active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 2px;
+      height: 16px;
+      border-radius: 0 2px 2px 0;
+      background: var(--el-color-primary-light-3);
+    }
+
+    .el-sub-menu .el-menu-item .playful-icon-wrap {
+      width: 26px;
+      height: 26px;
+      margin-right: 8px;
+      border-radius: 6px;
+    }
+
+    .el-sub-menu .el-menu-item .playful-icon-wrap .el-icon {
+      font-size: 15px;
+    }
+
+    .el-sub-menu .el-menu-item .playful-mini-dot {
+      flex-basis: 26px;
+      width: 26px;
+      height: 26px;
+      margin: 0 8px 0 0;
+      border-radius: 6px;
+    }
+
+    .el-sub-menu .el-menu-item .playful-mini-dot::before {
+      width: 5px;
+      height: 5px;
+    }
+
+    .el-sub-menu__icon-arrow {
+      margin-right: 0;
+      font-size: 11px;
+      opacity: 0.72;
+      color: var(--admin-sidebar-text-on);
+      transition: transform 0.22s ease, opacity 0.22s ease;
+    }
+
+    .el-sub-menu.is-opened > .el-sub-menu__title .el-sub-menu__icon-arrow {
+      transform: rotate(90deg);
+      opacity: 0.88;
+    }
+
+    &.el-menu--collapse {
+      /* EP 默认 trigger 为 inline-flex 且未居中，窄轨下图标会贴左 */
+      .el-menu-tooltip__trigger {
+        justify-content: center;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+      }
+
+      > .el-menu-item,
+      > .el-sub-menu > .el-sub-menu__title {
+        margin: 3px 8px;
+        padding: 0 !important;
+        justify-content: center;
+        align-items: center;
+        min-height: 42px;
+        border-radius: 8px;
+      }
+
+      /*
+       * 文字在 div 内的 span，不命中 EP 的 > span 折叠规则。
+       * 勿用 width:0 占位：中文易竖排/撑高；直接不参与布局（仅顶层轨，弹出层菜单项非 > .el-menu-item 直系）。
+       */
+      > .el-menu-item .playful-label,
+      > .el-sub-menu > .el-sub-menu__title .playful-label {
+        display: none !important;
+      }
+
+      /* 折叠时勿让 row 拉满一行，否则 title 里图标会视觉上靠左 */
+      > .el-sub-menu > .el-sub-menu__title .playful-row {
+        justify-content: center;
+        width: auto;
+        max-width: 100%;
+        min-width: 0;
+      }
+
+      .playful-icon-wrap {
+        margin-right: 0;
+      }
+
+      .playful-mini-dot {
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      > .el-menu-item.is-active::before {
+        left: 50%;
+        top: auto;
+        bottom: 5px;
+        transform: translateX(-50%);
+        width: 18px;
+        height: 3px;
+        border-radius: 3px;
+        background: var(--el-color-primary);
+        box-shadow: 0 0 10px var(--admin-menu-glow-primary);
+      }
+
+      .el-sub-menu__icon-arrow {
+        display: none;
+      }
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-aside,
+  .admin-drawer {
+    .admin-menu--rail {
+      .el-collapse-transition-enter-active,
+      .el-collapse-transition-leave-active {
+        transition-duration: 0.01ms !important;
+      }
+
+      .el-sub-menu__icon-arrow {
+        transition-duration: 0.01ms !important;
+      }
+
+      .playful-icon-wrap {
+        transition-duration: 0.01ms !important;
+      }
+    }
+  }
+}

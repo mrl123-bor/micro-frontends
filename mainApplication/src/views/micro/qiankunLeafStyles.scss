@@ -1,0 +1,43 @@
+/* qiankun 叶子路由：未配置入口时的提示（业务页面仅在子应用 .vue 内） */
+.micro-qiankun-leaf {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.micro-qiankun-leaf--host {
+  display: none;
+}
+
+.micro-qiankun-leaf--missing {
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  color: var(--el-text-color-regular);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.micro-qiankun-leaf__title {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--el-text-color-primary);
+}
+
+.micro-qiankun-leaf__hint {
+  margin: 0;
+  max-width: 520px;
+}
+
+.micro-qiankun-leaf__hint code {
+  margin: 0 2px;
+  padding: 1px 6px;
+  font-size: 12px;
+  border-radius: 4px;
+  background: var(--el-fill-color-light);
+  color: var(--el-text-color-primary);
+}
