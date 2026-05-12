@@ -33,10 +33,6 @@
 后端可对接 **NestJS** 等提供 REST 接口（如登录、`getInfo`、系统菜单与权限等）；主应用开发环境默认将 `/api` 代理到本地后端，详见主应用 `vite.config.ts` 与 `.env` 示例。
 
 ## 仓库结构（简要）
-
-<img width="1920" height="911" alt="image" src="https://github.com/user-attachments/assets/ddc3ab6a-4f5b-4742-8fde-4f521094a0ce" />
-
-
 ```
 微前端/
 ├── mainApplication/          # 主应用（管理后台壳）
@@ -46,7 +42,7 @@
 ```
 
 ## 关于「设计器」子应用
-
+<img width="1920" height="911" alt="image" src="https://github.com/user-attachments/assets/ddc3ab6a-4f5b-4742-8fde-4f521094a0ce" />
 主应用预留了**打印 / 模板设计**等相关微应用挂载能力（如 `VITE_PRINT_DESIGN_ENTRY`、设计相关路由等）。**设计器完整源码（前端子应用及 NestJS 后端）不在本开源仓库范围内**；若你需要设计器的前后端实现或商业授权，请另行联系。
 
 **联系方式**：qq - 2469496962
