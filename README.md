@@ -42,7 +42,9 @@
 ```
 
 ## 关于「设计器」子应用
-<img width="1920" height="911" alt="image" src="https://github.com/user-attachments/assets/ddc3ab6a-4f5b-4742-8fde-4f521094a0ce" />
+<img width="1912" height="948" alt="image" src="https://github.com/user-attachments/assets/c6b490a5-8b20-40f4-ab2e-29ae0696bc75" />
+<img width="1912" height="948" alt="image" src="https://github.com/user-attachments/assets/4b1c0709-a14f-4859-8d75-ab9e107b5e6c" />
+
 主应用预留了**打印 / 模板设计**等相关微应用挂载能力（如 `VITE_PRINT_DESIGN_ENTRY`、设计相关路由等）。**设计器完整源码（前端子应用及 NestJS 后端）不在本开源仓库范围内**；若你需要设计器的前后端实现或商业授权，请另行联系。
 
 **联系方式**：qq - 2469496962
