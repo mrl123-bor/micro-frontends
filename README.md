@@ -34,6 +34,9 @@
 
 ## 仓库结构（简要）
 
+<img width="1920" height="911" alt="image" src="https://github.com/user-attachments/assets/ddc3ab6a-4f5b-4742-8fde-4f521094a0ce" />
+
+
 ```
 微前端/
 ├── mainApplication/          # 主应用（管理后台壳）
