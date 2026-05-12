@@ -17,6 +17,9 @@
 
 在线演示（登录页）：<https://www.lghdev.com/admin/login>
 
+## 国内镜像
+地址：<https://gitee.com/jmszls/micro-frontends/tree/master>
+
 ## 技术栈摘要
 
 | 层级 | 技术 |
